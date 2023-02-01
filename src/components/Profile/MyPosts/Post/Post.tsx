@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Post.module.css'
 
-function Post() {
+function Post(props: any) {
     return (
         <div>
             <div className={s.item}>
@@ -9,11 +9,14 @@ function Post() {
                     <img
                         src="https://global-uploads.webflow.com/5e157547d6f791d34ea4e2bf/6087f2b060c7a92408bac811_logo.svg"
                         alt=""/>
-                    Post 1
-                    <div><span>like</span></div>
+                    {props.message}
+                    <div>
+                        <span>{props.likes}</span>
+                    </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
