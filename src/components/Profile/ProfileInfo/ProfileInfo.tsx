@@ -4,7 +4,7 @@ import s from './ProfileInfo.module.css'
 function ProfileInfo() {
     return (
         <div>
-            <div>
+            <div className={s.profileImg}>
                 <img src="https://sletaem.kz/upload/iblock/bb9/bb92209a394938a93de111fcf86de120.jpg" alt=""/>
             </div>
             <div className={s.descriptionBlock}>
