@@ -11,7 +11,7 @@ const MyPosts: React.FC<MyPostsProrpsType> = (props) => {
 
     const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
         let text = newPostElement.current?.value
