@@ -5,8 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
+import {StatePropsType} from "./redux/state";
 
-function App(props: any) {
+type AppPropsType ={
+    state: StatePropsType
+}
+
+function App(props: AppPropsType ) {
     return (
         <div className='app-wrapper'>
             <Header/>

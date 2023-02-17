@@ -2,8 +2,13 @@ import React from 'react';
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ProfilePagePropsType} from "../../redux/state";
 
-function Profile(props: any) {
+type ProfilePropsType = {
+    state: ProfilePagePropsType
+}
+
+function Profile(props: ProfilePropsType) {
 
     return (
         <div>

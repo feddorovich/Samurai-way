@@ -1,4 +1,28 @@
-let state = {
+import message from "../components/Dialogs/Message/Message";
+
+export type StatePropsType = {
+    profilePage: ProfilePagePropsType
+    dialogsPage: DialogsPagePropsType
+
+}
+export type ProfilePagePropsType ={
+    posts: PropsPostType[]
+}
+export type PropsPostType = {
+    id: number, message: string, likesCount: number
+}
+export type DialogsPagePropsType = {
+    messages: MessagesPropsType[]
+    dialogs: DialogPropsType[]
+}
+export type MessagesPropsType = {
+    id: number, message: string
+}
+export type DialogPropsType = {
+    id: number, name: string
+}
+
+let state: StatePropsType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hi, how are you', likesCount: 12},
