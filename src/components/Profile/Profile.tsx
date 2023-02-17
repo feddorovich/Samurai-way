@@ -8,8 +8,7 @@ type ProfilePropsType = {
     state: ProfilePagePropsType
 }
 
-function Profile(props: ProfilePropsType) {
-
+const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
