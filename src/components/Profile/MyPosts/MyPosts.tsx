@@ -16,7 +16,7 @@ function MyPosts(props: any) {
                     <textarea></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={() => {alert('alert')} }>Add post</button>
                 </div>
             </div>
             <div>
