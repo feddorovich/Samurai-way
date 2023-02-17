@@ -5,17 +5,17 @@ import {PostType} from "../../../redux/state";
 
 type MyPostsProrpsType = {
     posts: PostType[]
+    addPost: (postMessage: string) => void
 }
 
 const MyPosts: React.FC<MyPostsProrpsType> = (props) => {
 
     const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
     const newPostElement = React.createRef<HTMLTextAreaElement>()
-
     const addPost = () => {
-        let text = newPostElement.current?.value
-        alert(text)
+        let text = newPostElement.current ? newPostElement.current.value : 'Empty'
+        props.addPost(text)
+        console.log(text)
     }
 
     return (
