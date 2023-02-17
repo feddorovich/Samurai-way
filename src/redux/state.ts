@@ -1,28 +1,29 @@
 import message from "../components/Dialogs/Message/Message";
 
-export type StatePropsType = {
-    profilePage: ProfilePagePropsType
-    dialogsPage: DialogsPagePropsType
-
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: SidebarType
 }
-export type ProfilePagePropsType ={
-    posts: PropsPostType[]
+export type ProfilePageType ={
+    posts: PostType[]
 }
-export type PropsPostType = {
+export type PostType = {
     id: number, message: string, likesCount: number
 }
-export type DialogsPagePropsType = {
-    messages: MessagesPropsType[]
-    dialogs: DialogPropsType[]
+export type DialogsPageType = {
+    messages: MessagesType[]
+    dialogs: DialogType[]
 }
-export type MessagesPropsType = {
+export type MessagesType = {
     id: number, message: string
 }
-export type DialogPropsType = {
+export type DialogType = {
     id: number, name: string
 }
+export type SidebarType = {}
 
-let state: StatePropsType = {
+let state: RootStateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hi, how are you', likesCount: 12},
@@ -47,7 +48,8 @@ let state: StatePropsType = {
             {id: 5, name: 'Viltor'},
             {id: 6, name: 'Valera'}
         ]
-    }
+    },
+    sidebar: {}
 }
 
 export default state

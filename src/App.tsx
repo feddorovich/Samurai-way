@@ -5,10 +5,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {StatePropsType} from "./redux/state";
+import {RootStateType} from "./redux/state";
 
 type AppPropsType ={
-    state: StatePropsType
+    state: RootStateType
 }
 
 function App(props: AppPropsType ) {
