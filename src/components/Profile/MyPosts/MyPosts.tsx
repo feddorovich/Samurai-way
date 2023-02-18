@@ -19,7 +19,6 @@ const MyPosts: React.FC<MyPostsProrpsType> = (props) => {
             return 'Enter text please'
         }
         props.addPost(text)
-        console.log(text)
     }
 
     return (
