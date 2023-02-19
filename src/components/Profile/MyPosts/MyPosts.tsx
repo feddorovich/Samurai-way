@@ -19,6 +19,7 @@ const MyPosts: React.FC<MyPostsProrpsType> = (props) => {
             return 'Enter text please'
         }
         props.addPost(text)
+        newPostElement.current!.value = ''
     }
 
     return (
