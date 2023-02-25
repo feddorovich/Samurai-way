@@ -12,7 +12,11 @@ type MyPostsProrpsType = {
 
 const MyPosts: React.FC<MyPostsProrpsType> = (props) => {
 
-    const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    const postsElements = props.posts.map(p => <Post key={p.id}
+                                                     id={p.id}
+                                                     message={p.message}
+                                                     likesCount={p.likesCount}
+    />)
 
     const addPost = () => {
         props.addPost(props.newPostText)
