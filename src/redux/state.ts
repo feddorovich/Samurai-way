@@ -1,11 +1,13 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+    console.log('ds')
+}
 
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
-export type ProfilePageType ={
+export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
@@ -55,15 +57,23 @@ let state: RootStateType = {
 }
 
 export const addPost = (postMessage: string) => {
-    const newPost: PostType = {id: 5, message:state.profilePage.newPostText, likesCount:0}
+    const newPost: PostType = {
+        id: state.profilePage.posts.length + 1,
+        message: state.profilePage.newPostText,
+        likesCount: 0
+    }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer
 }
 
 export default state
