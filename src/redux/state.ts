@@ -1,6 +1,4 @@
-let rerenderEntireTree = () => {
-    console.log('ds')
-}
+let rerenderEntireTree = () => {}
 
 export type RootStateType = {
     profilePage: ProfilePageType
