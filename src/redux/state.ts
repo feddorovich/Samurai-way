@@ -1,5 +1,13 @@
 let rerenderEntireTree = () => {}
 
+export type StoreType= {
+    _state: RootStateType
+    rerenderEntireTree: () => void
+    addPost: (postMessage: string) => void
+    updateNewPostText:(newText: string) => void
+    subscribe: (observer: () => void) => void
+    getState: () => RootStateType
+}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -23,6 +31,62 @@ export type DialogType = {
     id: number, name: string
 }
 export type SidebarType = {}
+
+
+
+let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hi, how are you', likesCount: 12},
+                {id: 2, message: 'It\'s my first post', likesCount: 10},
+                {id: 3, message: 'Blabla', likesCount: 10},
+                {id: 4, message: 'Dada', likesCount: 10},
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            messages: [
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'How are you?'},
+                {id: 3, message: 'Good'},
+                {id: 4, message: 'Yo'},
+                {id: 5, message: 'YoYo'}
+            ],
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrey'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Sasha'},
+                {id: 5, name: 'Viltor'},
+                {id: 6, name: 'Valera'}
+            ]
+        },
+        sidebar: {}
+    },
+    rerenderEntireTree() {},
+    addPost(postMessage: string) {
+        const newPost: PostType = {
+            id: state.profilePage.posts.length + 1,
+            message: state.profilePage.newPostText,
+            likesCount: 0
+        }
+        state.profilePage.posts.push(newPost)
+        state.profilePage.newPostText = ''
+        rerenderEntireTree()
+    },
+    updateNewPostText(newText: string) {
+        state.profilePage.newPostText = newText
+        rerenderEntireTree()
+    },
+    subscribe (observer: () => void) {
+        rerenderEntireTree = observer
+    },
+    getState() {
+        return this._state
+    }
+}
+
 
 let state: RootStateType = {
     profilePage: {
