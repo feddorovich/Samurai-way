@@ -1,4 +1,4 @@
-export type StoreType= {
+export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     getState: () => RootStateType
@@ -29,29 +29,19 @@ export type DialogType = {
 }
 export type SidebarType = {}
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
-type AddPostActionType = {
-    type: "ADD-POST"
-    postMessage: string
-}
-// Так же можно написать export const addPostActionCreator = ReturnType<typeof addPostActionCreator>
-//
-type UpdateNewPostTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
-export const addPostActionCreator = (postMessage: string): AddPostActionType => {
-  return {
-      type: "ADD-POST",
-      postMessage: postMessage
-  }
+export const addPostActionCreator = (postMessage: string) => {
+    return {
+        type: "ADD-POST",
+        postMessage: postMessage
+    } as const
 }
-export const updateNewPostTextActionCreator = (newText: string):UpdateNewPostTextActionType => {
+export const updateNewPostTextActionCreator = (newText: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
         newText: newText
-    }
+    } as const
 }
 
 let store: StoreType = {
@@ -84,15 +74,16 @@ let store: StoreType = {
         },
         sidebar: {}
     },
-    _callSubscriber() {},
+    _callSubscriber() {
+    },
     getState() {
         return this._state
     },
-    subscribe (observer: () => void) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST') {
+        if (action.type === 'ADD-POST') {
             const newPost: PostType = {
                 id: new Date().getTime(),
                 message: action.postMessage,
