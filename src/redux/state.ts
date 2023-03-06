@@ -3,10 +3,11 @@ let rerenderEntireTree = () => {}
 export type StoreType= {
     _state: RootStateType
     _callSubscriber: () => void
+    getState: () => RootStateType
+    subscribe: (observer: () => void) => void
     addPost: (postMessage: string) => void
     updateNewPostText:(newText: string) => void
-    subscribe: (observer: () => void) => void
-    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -31,6 +32,16 @@ export type DialogType = {
     id: number, name: string
 }
 export type SidebarType = {}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+type AddPostActionType = {
+    type: "ADD-POST"
+    postMessage: string
+}
+type UpdateNewPostTextActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
 
 
 
@@ -64,14 +75,17 @@ let store: StoreType = {
         },
         sidebar: {}
     },
+    _callSubscriber() {},
     getState() {
         return this._state
     },
-    _callSubscriber() {},
+    subscribe (observer: () => void) {
+        this._callSubscriber = observer
+    },
     addPost(postMessage: string) {
         const newPost: PostType = {
-            id: this._state.profilePage.posts.length + 1,
-            message: this._state.profilePage.newPostText,
+            id: new Date().getTime(),
+            message: postMessage,
             likesCount: 0
         }
         this._state.profilePage.posts.push(newPost)
@@ -82,8 +96,20 @@ let store: StoreType = {
         this._state.profilePage.newPostText = newText
         this._callSubscriber()
     },
-    subscribe (observer: () => void) {
-        this._callSubscriber = observer
+    dispatch(action) {
+        if(action.type === 'ADD-POST') {
+            const newPost: PostType = {
+                id: new Date().getTime(),
+                message: action.postMessage,
+                likesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber()
+        }
     }
 }
 
