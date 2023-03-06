@@ -1,3 +1,7 @@
+import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
+import dialogsReducer, {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
@@ -36,7 +40,7 @@ export type ActionsTypes =
     | ReturnType<typeof sendMessageActionCreator>
     | ReturnType<typeof updateNewMessageBodyActionCreator>
 
-export const addPostActionCreator = (postMessage: string) => {
+/*export const addPostActionCreator = (postMessage: string) => {
     return {
         type: "ADD-POST",
         postMessage: postMessage
@@ -59,7 +63,7 @@ export const updateNewMessageBodyActionCreator = (body: string) => {
         type: "UPDATE-NEW-MESSAGE-BODY",
         body: body
     } as const
-}
+}*/
 
 let store: StoreType = {
     _state: {
@@ -101,7 +105,12 @@ let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber()
+
+/*        if (action.type === 'ADD-POST') {
             const newPost: PostType = {
                 id: new Date().getTime(),
                 message: action.postMessage,
@@ -124,7 +133,7 @@ let store: StoreType = {
             this._state.dialogsPage.messages.push(newBody)
             this._state.dialogsPage.newMessageBody = ''
             this._callSubscriber()
-        }
+        }*/
     }
 }
 
