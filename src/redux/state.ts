@@ -2,7 +2,7 @@ let rerenderEntireTree = () => {}
 
 export type StoreType= {
     _state: RootStateType
-    rerenderEntireTree: () => void
+    _callSubscriber: () => void
     addPost: (postMessage: string) => void
     updateNewPostText:(newText: string) => void
     subscribe: (observer: () => void) => void
@@ -64,26 +64,26 @@ let store: StoreType = {
         },
         sidebar: {}
     },
-    rerenderEntireTree() {},
-    addPost(postMessage: string) {
-        const newPost: PostType = {
-            id: state.profilePage.posts.length + 1,
-            message: state.profilePage.newPostText,
-            likesCount: 0
-        }
-        state.profilePage.posts.push(newPost)
-        state.profilePage.newPostText = ''
-        rerenderEntireTree()
-    },
-    updateNewPostText(newText: string) {
-        state.profilePage.newPostText = newText
-        rerenderEntireTree()
-    },
-    subscribe (observer: () => void) {
-        rerenderEntireTree = observer
-    },
     getState() {
         return this._state
+    },
+    _callSubscriber() {},
+    addPost(postMessage: string) {
+        const newPost: PostType = {
+            id: this._state.profilePage.posts.length + 1,
+            message: this._state.profilePage.newPostText,
+            likesCount: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+    subscribe (observer: () => void) {
+        this._callSubscriber = observer
     }
 }
 
@@ -138,4 +138,4 @@ export const subscribe = (observer: () => void) => {
     rerenderEntireTree = observer
 }
 
-export default state
+export default store
