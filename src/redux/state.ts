@@ -1,5 +1,5 @@
-import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
-import dialogsReducer, {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
+import profileReducer, {ProfileReducerType} from "./profile-reducer";
+import dialogsReducer, {DialogsReducerType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
 export type StoreType = {
@@ -34,36 +34,7 @@ export type DialogType = {
 }
 export type SidebarType = {}
 
-export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof sendMessageActionCreator>
-    | ReturnType<typeof updateNewMessageBodyActionCreator>
-
-/*export const addPostActionCreator = (postMessage: string) => {
-    return {
-        type: "ADD-POST",
-        postMessage: postMessage
-    } as const
-}
-export const updateNewPostTextActionCreator = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
-    } as const
-}
-export const sendMessageActionCreator = (messagesMessage: string) => {
-    return {
-        type: "SEND-MESSAGE",
-        messagesMessage: messagesMessage
-    } as const
-}
-export const updateNewMessageBodyActionCreator = (body: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-BODY",
-        body: body
-    } as const
-}*/
+export type ActionsTypes = ProfileReducerType | DialogsReducerType
 
 let store: StoreType = {
     _state: {
@@ -105,35 +76,10 @@ let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action as ProfileReducerType)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action as DialogsReducerType)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._callSubscriber()
-
-/*        if (action.type === 'ADD-POST') {
-            const newPost: PostType = {
-                id: new Date().getTime(),
-                message: action.postMessage,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._callSubscriber()
-        } else if (action.type === 'SEND-MESSAGE') {
-            const newBody: MessagesType = {
-                id: new Date().getTime(),
-                message: action.messagesMessage
-            }
-            this._state.dialogsPage.messages.push(newBody)
-            this._state.dialogsPage.newMessageBody = ''
-            this._callSubscriber()
-        }*/
     }
 }
 
