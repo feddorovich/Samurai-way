@@ -1,4 +1,4 @@
-import {DialogsPageType, MessagesType} from "./state";
+import {DialogsPageType, MessagesType} from "./store";
 
 export type DialogsReducerType = SendMessageActionType | UpdateNewMessageBodyActionType
 type SendMessageActionType = ReturnType<typeof sendMessageActionCreator>

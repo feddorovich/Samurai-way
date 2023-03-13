@@ -1,4 +1,4 @@
-import {PostType, ProfilePageType} from "./state";
+import {PostType, ProfilePageType} from "./store";
 
 export type ProfileReducerType = AddPostActionType | UpdateNewPostTextActionType
 type AddPostActionType = ReturnType<typeof addPostActionCreator>
