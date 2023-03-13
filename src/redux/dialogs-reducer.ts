@@ -17,21 +17,37 @@ export const updateNewMessageBodyActionCreator = (body: string) => {
     } as const
 }
 
-const dialogsReducer = (state: DialogsPageType, action: DialogsReducerType) => {
-    switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-BODY':
-            state.newMessageBody = action.body
-            break;
-        case 'SEND-MESSAGE':
-            const newBody: MessagesType = {
-                id: new Date().getTime(),
-                message: action.messagesMessage
-            }
-            state.messages.push(newBody)
-            state.newMessageBody = ''
-            break;
-        default:
-            return state
+let initialState = {
+    dialogs: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Andrey'},
+        {id: 3, name: 'Sveta'},
+        {id: 4, name: 'Sasha'},
+        {id: 5, name: 'Viltor'},
+        {id: 6, name: 'Valera'}
+    ],
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'Good'},
+        {id: 4, message: 'Yo'},
+        {id: 5, message: 'YoYo'}
+    ],
+    newMessageBody: ''
+}
+
+const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsReducerType) => {
+    if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+        state.newMessageBody = action.body
+    } else if (action.type === 'SEND-MESSAGE') {
+        const newBody: MessagesType = {
+            id: new Date().getTime(),
+            message: action.messagesMessage
+        }
+        state.messages.push(newBody)
+        state.newMessageBody = ''
+    } else {
+        return state
     }
 
     return state

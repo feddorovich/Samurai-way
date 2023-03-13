@@ -6,9 +6,10 @@ import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import {ActionsTypes, RootStateType} from "./redux/store";
+import {AppStoreType} from "./redux/redux-store";
 
 type AppPropsType ={
-    state: RootStateType
+    state: AppStoreType
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -21,13 +22,13 @@ function App(props: AppPropsType ) {
 
                 <Route path={'/dialogs'}
                        render={() => <Dialogs
-                           state={props.state.dialogsPage}
+                           state={props.state.dialogsReducer}
                            dispatch={props.dispatch}
                        />}/>
 
                 <Route path={'/profile'}
                        render={() => <Profile
-                           profilePage={props.state.profilePage}
+                           profilePage={props.state.profileReducer}
                            dispatch={props.dispatch}
                        />}/>
             </div>
