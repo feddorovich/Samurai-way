@@ -7,6 +7,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import {ActionsTypes, RootStateType} from "./redux/store";
 import {AppStoreType} from "./redux/redux-store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType ={
     state: AppStoreType
@@ -21,7 +22,7 @@ function App(props: AppPropsType ) {
             <div className={'app-wrapper-content'}>
 
                 <Route path={'/dialogs'}
-                       render={() => <Dialogs
+                       render={() => <DialogsContainer
                            state={props.state.dialogsReducer}
                            dispatch={props.dispatch}
                        />}/>
