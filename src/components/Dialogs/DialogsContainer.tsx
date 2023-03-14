@@ -1,5 +1,4 @@
 import React from 'react';
-import {ActionsTypes, DialogsPageType,} from "../../redux/store";
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import StoreContext from "../../StoreContext";
@@ -9,9 +8,7 @@ type DialogsPropsType = {
     // dispatch: (action: ActionsTypes) => void
 }
 
-const DialogsContainer: React.FC<DialogsPropsType> = (props) => {
-
-
+const DialogsContainer: React.FC = (props) => {
 
     return (
         <>

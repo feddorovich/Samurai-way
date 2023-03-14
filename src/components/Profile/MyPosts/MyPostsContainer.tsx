@@ -1,5 +1,4 @@
 import React from 'react';
-import {ActionsTypes, PostType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import StoreContext from "../../../StoreContext";
@@ -10,7 +9,7 @@ type MyPostsProrpsType = {
     // dispatch: (action: ActionsTypes) => void
 }
 
-const MyPostsContainer: React.FC<MyPostsProrpsType> = (props) => {
+const MyPostsContainer: React.FC = (props) => {
 
     return (
         <>
